@@ -6,41 +6,51 @@ using System.Threading.Tasks;
 
 namespace SnakeAndLadder
 {
-    internal class SnakeLadder
+    public class SnakeLadder
     {
         public void Game()
         {
-            //this is for first statement
+            //Start Position
+            int playerPosition = 0;
             int start = 0;
             Console.WriteLine("Start Position:" + start);
 
-            //Rolls the die
-            Random random = new Random();
-            int roll = random.Next(1, 7);
-            Console.WriteLine("Die O/P is:" +roll);
-
-
-
-            //It's check for position
-            int playerPosition = 0;
-            int ladder = 1;
-            int snake = 2;
-            Console.WriteLine("1:ladder\t 2: snake\t 3: notplay");
-            int option = random.Next(1, 4);
-            Console.WriteLine("Choosed option is: " + option);
-            if (option == ladder)
+            while (playerPosition < 100)
             {
-                playerPosition = playerPosition + roll;
-                Console.WriteLine("With ladder player moves {0} steps ahead and now on {1} position ", roll, playerPosition);
-            }
-            else if (option == snake)
-            {
-                playerPosition = playerPosition - roll;
-                Console.WriteLine("With snake player moves {0} steps back and now is on {1} position ", roll, playerPosition);
-            }
-            else
-            {
-                Console.WriteLine("no play player stays on its position only no movement " + playerPosition);
+                //Rolls the die
+                Random random = new Random();
+                int roll = random.Next(1, 7);
+                Console.WriteLine("Die output is: " + roll);
+
+                //Check For Position         
+                const int Ladder = 1;
+                const int Snake = 2;
+                //const int No_Play = 3;
+                Console.WriteLine("1:ladder\t 2: snake\t 3: noplay");
+                int option = random.Next(1, 4);
+                Console.WriteLine("Choosed option is: " + option);
+                if (playerPosition >= 0)
+                {
+                    switch (option)
+                    {
+                        case Ladder:
+                            playerPosition = playerPosition + roll;
+                            Console.WriteLine("With ladder player moves {0} steps ahead and now on {1} position ", roll, playerPosition);
+                            break;
+                        case Snake:
+                            playerPosition = playerPosition - roll;
+                            Console.WriteLine("With snake player moves {0} steps back and now is on {1} position ", roll, playerPosition);
+                            break;
+                        default:
+                            Console.WriteLine("no play player stays on its position only no movement " + playerPosition);
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("though player goes into negative position then player needs to play from start position again");
+                    playerPosition = start;
+                }
             }
         }
     }
